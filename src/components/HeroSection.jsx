@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 export default function HeroSection() {
   return (
     <section className="ai-gradient">
@@ -5,24 +7,24 @@ export default function HeroSection() {
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div>
             <h1 className="text-4xl md:text-5xl font-bold text-accent">
-             Predict Moleclar Property Using AI
+             Predict Molecular Property Using AI
             </h1>
             <p className="mt-4 text-accent/80">
               Analyze drug molecules instantly using machine learning and cheminformatics.
             </p>
             <div className="mt-8 flex gap-4">
-              <a
-                href="/predict"
+              <Link
+                to="/predict"
                 className="inline-flex items-center rounded-2xl bg-primary/80 backdrop-blur text-accent px-6 py-3 font-semibold shadow-soft hover:bg-secondary transition-colors glow-soft"
               >
                 Start Predicting
-              </a>
-              <a
-                href="/docs"
+              </Link>
+              <Link
+                to="/docs"
                 className="inline-flex items-center rounded-2xl border border-accent text-accent px-6 py-3 font-semibold hover:bg-accent/5 transition-colors"
               >
                 Documentation
-              </a>
+              </Link>
             </div>
           </div>
           <div className="flex justify-center">

@@ -10,6 +10,10 @@ const __dirname = path.dirname(__filename)
 const modelPath = path.join(__dirname, '../../model/model.json')
 const weights = JSON.parse(fs.readFileSync(modelPath, 'utf-8'))
 
+// Pre-allocate tensors to avoid memory leaks and improve performance
+const W = tf.tensor2d(weights.W)
+const b = tf.tensor1d(weights.b)
+
 function extract(s) {
   const len = s.length
   const c = (s.match(/C/g) || []).length
@@ -22,21 +26,32 @@ function extract(s) {
 router.post('/', async (req, res) => {
   const { smiles, task } = req.body || {}
   if (!smiles) return res.status(400).json({ error: 'invalid' })
-  const features = extract(smiles)
-  const x = tf.tensor2d([features], [1, features.length])
-  const W = tf.tensor2d(weights.W)
-  const b = tf.tensor1d(weights.b)
-  const y = tf.tidy(() => x.matMul(W).add(b).sigmoid())
-  const arr = await y.array()
-  const [tox, sol, dl, logp] = arr[0]
-  const out = {
-    toxicity: Number(tox.toFixed(2)),
-    solubility: Number(sol.toFixed(2)),
-    drug_likeness: Number(dl.toFixed(2)),
-    logP: Number((logp * 5 - 1).toFixed(2)),
-    interpretation: 'Moderately safe and soluble.'
+  
+  try {
+    const features = extract(smiles)
+    const out = tf.tidy(() => {
+      const x = tf.tensor2d([features], [1, features.length])
+      // Use the pre-allocated weights
+      const y = x.matMul(W).add(b).sigmoid()
+      return y
+    })
+    
+    const arr = await out.array()
+    out.dispose() // Clean up the result tensor
+    
+    const [tox, sol, dl, logp] = arr[0]
+    const result = {
+      toxicity: Number(tox.toFixed(2)),
+      solubility: Number(sol.toFixed(2)),
+      drug_likeness: Number(dl.toFixed(2)),
+      logP: Number((logp * 5 - 1).toFixed(2)),
+      interpretation: 'Moderately safe and soluble.'
+    }
+    return res.json(result)
+  } catch (err) {
+    console.error('Prediction error:', err)
+    return res.status(500).json({ error: 'Prediction failed' })
   }
-  return res.json(out)
 })
 
 export default router
