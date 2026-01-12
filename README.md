@@ -35,7 +35,6 @@ Secure authentication to personalize molecule history and predictions.
 
 📸 **Screenshot:**
 
-
 ```
 Photos/LoginP.png
 ```
@@ -76,7 +75,7 @@ Users input a SMILES string and instantly receive AI-powered predictions with mo
 📸 **Screenshot:**
 
 ```
-Photos/PredictionP.png
+Photos/PredictionP.pn
 ```
 
 ---
@@ -261,3 +260,4 @@ npm start
 
 Developed as an AI‑driven drug discovery platform project.
 If you find this project useful, consider starring the repository!
+
