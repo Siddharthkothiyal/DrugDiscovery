@@ -33,10 +33,13 @@ Secure authentication to personalize molecule history and predictions.
 * User registration
 * Session-based or token-based authentication
 
-📸 **Screenshot:**
+📸 ##**Screenshot:**
+<p align="center">
+  <img src="Photos/LoginP.png" alt="Interview Simulation" width="600" style="max-width: 100%;">
+</p>
 
 ```
-Photos/LoginP.png
+
 ```
 
 ---
@@ -53,9 +56,13 @@ Central hub after login where users can quickly access predictions and saved mol
 * Clean scientific UI
 
 📸 **Screenshot:**
+<p align="center">
+  <img src="Photos/HomePageee.png" alt="Home Screen" width="600" style="max-width: 100%;">
+</p>
 
 ```
-Photos/HomePageee.png
+
+
 ```
 
 ---
@@ -73,9 +80,12 @@ Users input a SMILES string and instantly receive AI-powered predictions with mo
 * Save molecule option
 
 📸 **Screenshot:**
+<p align="center">
+  <img src="Photos/PredictionP.png" alt="Home Screen" width="600" style="max-width: 100%;">
+</p>
 
 ```
-Photos/PredictionP.pn
+
 ```
 
 ---
